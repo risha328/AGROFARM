@@ -1,0 +1,113 @@
+import React, { useContext, useState } from 'react';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { Link, useNavigate } from 'react-router-dom';
+import SummaryApi from '../common';
+import { toast } from 'react-toastify';
+import Context from '../context';
+import { motion } from "framer-motion";
+import { GiPlantSeed } from "react-icons/gi";
+
+const Login = () => {
+    const [showPassword, setShowPassword] = useState(false);
+    const [data, setData] = useState({ email: "", password: "" });
+    const navigate = useNavigate();
+    const { fetchUserDetails, fetchUserAddToCart } = useContext(Context);
+
+    const handleOnChange = (e) => {
+        const { name, value } = e.target;
+        setData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const dataResponse = await fetch(SummaryApi.signIn.url, {
+            method: SummaryApi.signIn.method,
+            credentials: 'include',
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(data)
+        });
+
+        const dataApi = await dataResponse.json();
+        if (dataApi.success) {
+            toast.success(dataApi.message);
+            navigate('/');
+            fetchUserDetails();
+            fetchUserAddToCart();
+        }
+        if (dataApi.error) {
+            toast.error(dataApi.message);
+        }
+    };
+
+    return (
+        <section className='min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-green-100'>
+            <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className='bg-white rounded-2xl shadow-xl p-8 w-full max-w-md'
+            >
+                {/* Animated Logo */}
+                <div className='flex justify-center mb-4'>
+                    <motion.div
+                        animate={{ rotate: [0, -10, 10, -10, 0] }}
+                        transition={{ repeat: Infinity, duration: 4 }}
+                        className='text-green-600 text-5xl'
+                    >
+                        <GiPlantSeed />
+                    </motion.div>
+                </div>
+
+                <h2 className='text-center text-2xl font-bold text-green-700 mb-4'>Welcome Back Farmer</h2>
+
+                <form className='space-y-4' onSubmit={handleSubmit}>
+                    {/* Email */}
+                    <div>
+                        <label className='text-sm font-medium text-green-800'>Email</label>
+                        <input
+                            type='email'
+                            name='email'
+                            value={data.email}
+                            onChange={handleOnChange}
+                            placeholder='Enter your email'
+                            className='mt-1 block w-full rounded-xl border-gray-300 focus:ring-2 focus:ring-green-500 focus:outline-none p-3 bg-green-50 transition'
+                            required
+                        />
+                    </div>
+
+                    {/* Password */}
+                    <div>
+                        <label className='text-sm font-medium text-green-800'>Password</label>
+                        <div className='relative'>
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                name='password'
+                                value={data.password}
+                                onChange={handleOnChange}
+                                placeholder='Enter your password'
+                                className='mt-1 block w-full rounded-xl border-gray-300 focus:ring-2 focus:ring-green-500 focus:outline-none p-3 bg-green-50 pr-10 transition'
+                                required
+                            />
+                            <span className='absolute right-3 top-3 cursor-pointer text-green-600' onClick={() => setShowPassword(prev => !prev)}>
+                                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                            </span>
+                        </div>
+                        <Link to={'/forgot-password'} className='block w-fit ml-auto text-sm text-green-600 hover:underline mt-1'>
+                            Forgot Password?
+                        </Link>
+                    </div>
+
+                    <button className='w-full bg-green-600 text-white py-2 rounded-full hover:bg-green-700 transition-transform hover:scale-105'>
+                        Login
+                    </button>
+                </form>
+
+                <p className='mt-4 text-center text-sm'>
+                    Don't have an account? <Link to={"/sign-up"} className='text-green-600 hover:underline'>Sign Up</Link>
+                </p>
+            </motion.div>
+        </section>
+    );
+};
+
+export default Login;
