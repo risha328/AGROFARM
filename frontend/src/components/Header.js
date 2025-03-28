@@ -55,7 +55,7 @@ const Header = () => {
     }
 
     return (
-        <header className="bg-green-600 text-white shadow-lg top-3 z-70">
+        <header className="bg-green-800 text-white shadow-lg top-3 z-70">
             <div className="max-w-screen-xl mx-auto px-9 py-5 flex justify-between items-center">
 
                 {/* Logo */}
@@ -63,7 +63,7 @@ const Header = () => {
                     <motion.div animate={{ rotate: [0, -5, 5, -5, 0] }} transition={{ repeat: Infinity, duration: 4 }}>
                         <GiFarmTractor className="text-3xl" />
                     </motion.div>
-                    <span>AgroFarm</span>
+                    <span>AGROFARM</span>
                 </Link>
 
                 {/* Search */}
@@ -84,14 +84,22 @@ const Header = () => {
                     <Link to="/" className="hover:text-green-300">Home</Link>
 
                     {/* Product Dropdown */}
-                    <div className="relative group">
-                        <span className="hover:text-green-300 cursor-pointer">Products ▾</span>
-                        <div className="absolute hidden group-hover:block bg-white text-green-700 rounded shadow-md py-2 w-44 space-y-1">
-                            <Link to="/products/seeds" className="block px-4 py-1 hover:bg-green-100">Seeds</Link>
-                            <Link to="/products/fertilizers" className="block px-4 py-1 hover:bg-green-100">Fertilizers</Link>
-                            <Link to="/products/tools" className="block px-4 py-1 hover:bg-green-100">Tools</Link>
-                        </div>
-                    </div>
+                    {/* Product Dropdown */}
+<div className="relative group">
+    <span className="hover:text-green-300 cursor-pointer">Products ▾</span>
+    <div className="absolute top-full left-0 hidden group-hover:block bg-white text-green-700 rounded-lg shadow-lg py-2 min-w-[12rem] space-y-1 z-50 border border-green-300">
+        <Link to="/products/fruits" className="block px-4 py-2 hover:bg-green-100">Fruits</Link>
+        <Link to="/products/flowers" className="block px-4 py-2 hover:bg-green-100">Flowers</Link>
+        <Link to="/products/vegetables" className="block px-4 py-2 hover:bg-green-100">Vegetables</Link>
+        <Link to="/products/plantgrowthpromoters" className="block px-4 py-2 hover:bg-green-100">Plant Growth Promoters</Link>
+        <Link to="/products/pesticides" className="block px-4 py-2 hover:bg-green-100">Insecticides & Pesticides</Link>
+        <Link to="/products/fertilizers" className="block px-4 py-2 hover:bg-green-100">Fertilizers</Link>
+        <Link to="/products/animals" className="block px-4 py-2 hover:bg-green-100">Animal Husbandry Products</Link>
+        <Link to="/products/tools" className="block px-4 py-2 hover:bg-green-100">Tools</Link>
+        <Link to="/products/organic" className="block px-4 py-2 hover:bg-green-100">Organic & Specialty Items</Link>
+    </div>
+</div>
+
 
                     <Link to="/about" className="hover:text-green-300">About</Link>
                     <Link to="/contact" className="hover:text-green-300">Contact</Link>
