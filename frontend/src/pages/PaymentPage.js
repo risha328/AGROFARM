@@ -58,7 +58,7 @@ const PaymentPage = () => {
                 key: process.env.REACT_APP_RAZORPAY_KEY_ID,
                 amount: totalAmount * 100,
                 currency: "INR",
-                name: "Kishan2Kitchen",
+                name: "AGROFARM",
                 description: "Order Payment",
                 order_id: orderData.order.id,
                 handler: async function (response) {

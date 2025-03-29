@@ -18,7 +18,8 @@ import PaymentPage from '../pages/PaymentPage'     // ✅ Added
 import ErrorPage from '../pages/ErrorPage'
 import Orders from '../pages/Orders'
 import Wishlist from '../pages/Wishlist'
-
+import AboutUs from '../pages/AboutUs'
+import FarmerSell from '../pages/FarmerSell'
 const router = createBrowserRouter([
     {
         path: "/",
@@ -33,8 +34,8 @@ const router = createBrowserRouter([
             { path: "product/:id", element: <ProductDetails /> },
             { path: "cart", element: <Cart /> },
             { path: "search", element: <SearchProduct /> },
-
-            
+            {path: "aboutus", element: <AboutUs/>},
+            {path: "farmersell", element: <FarmerSell/>},
             { path: "payment", element: <PaymentPage /> },
 
             // ✅ Admin Panel Routes
@@ -57,6 +58,7 @@ const router = createBrowserRouter([
                     {path: "wishlist", element: <Wishlist/>}
                 ]
             }
+
         ]
     }
 ])

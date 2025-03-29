@@ -24,7 +24,7 @@ const Header = () => {
 
     const searchInput = useLocation()
     const URLSearch = new URLSearchParams(searchInput?.search)
-    const searchQuery = URLSearch.getAll("q")
+    const searchQuery = URLSearch.get("q") || ""
     const [search, setSearch] = useState(searchQuery)
 
     const toggleMenu = () => setIsOpen(!isOpen)
@@ -41,8 +41,7 @@ const Header = () => {
             toast.success(data.message)
             dispatch(setUserDetails(null))
             navigate("/")
-        }
-        if (data.error) {
+        } else {
             toast.error(data.message)
         }
     }
@@ -50,140 +49,96 @@ const Header = () => {
     const handleSearch = (e) => {
         const { value } = e.target
         setSearch(value)
-        if (value) navigate(`/search?q=${value}`)
-        else navigate("/search")
+        navigate(value ? `/search?q=${value}` : "/search")
     }
 
     return (
-        <header className="bg-green-800 text-white shadow-lg top-3 z-70">
-            <div className="max-w-screen-xl mx-auto px-9 py-5 flex justify-between items-center">
+        <header className="bg-green-800 text-white shadow-lg fixed top-0 w-full z-50">
+    <div className="max-w-screen-xl mx-auto px-4 py-4 flex justify-between items-center">
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-2 text-2xl font-bold">
+            <motion.div animate={{ rotate: [0, -5, 5, -5, 0] }} transition={{ repeat: Infinity, duration: 4 }}>
+                <GiFarmTractor className="text-3xl" />
+            </motion.div>
+            <span>AGROFARM</span>
+        </Link>
 
-                {/* Logo */}
-                <Link to="/" className="flex items-center gap-2 text-2xl font-bold text-white">
-                    <motion.div animate={{ rotate: [0, -5, 5, -5, 0] }} transition={{ repeat: Infinity, duration: 4 }}>
-                        <GiFarmTractor className="text-3xl" />
-                    </motion.div>
-                    <span>AGROFARM</span>
-                </Link>
+        {/* Search Bar - Visible on large screens */}
+        <div className="hidden lg:flex items-center w-full max-w-md border border-green-500 rounded-full bg-green-600 px-3">
+            <input type="text" placeholder="Search products..." className="w-full bg-transparent py-2 text-white outline-none" />
+            <GrSearch className="text-xl text-white cursor-pointer" />
+        </div>
 
-                {/* Search */}
-                <div className="hidden lg:flex items-center w-full max-w-md border border-green-500 rounded-full bg-green-600 focus-within:ring-2 ring-green-300 px-3 mx-4">
-                    <input
-                        type="text"
-                        placeholder="Search products..."
-                        className="w-full outline-none bg-transparent py-2 text-white placeholder-white"
-                        value={search}
-                        onChange={handleSearch}
-                    />
-                    <GrSearch className="text-xl text-white" />
-                </div>
+        {/* Navigation */}
+        <nav className="hidden md:flex items-center gap-6">
+            <Link to="/" className="hover:text-green-300">Home</Link>
 
-                {/* Desktop Navigation */}
-                <nav className="hidden md:flex items-center gap-8 text-[1rem]">
-
-                    <Link to="/" className="hover:text-green-300">Home</Link>
-
-                    {/* Product Dropdown */}
-                    {/* Product Dropdown */}
-<div className="relative group">
-    <span className="hover:text-green-300 cursor-pointer">Products ▾</span>
-    <div className="absolute top-full left-0 hidden group-hover:block bg-white text-green-700 rounded-lg shadow-lg py-2 min-w-[12rem] space-y-1 z-50 border border-green-300">
-        <Link to="/products/fruits" className="block px-4 py-2 hover:bg-green-100">Fruits</Link>
-        <Link to="/products/flowers" className="block px-4 py-2 hover:bg-green-100">Flowers</Link>
-        <Link to="/products/vegetables" className="block px-4 py-2 hover:bg-green-100">Vegetables</Link>
-        <Link to="/products/plantgrowthpromoters" className="block px-4 py-2 hover:bg-green-100">Plant Growth Promoters</Link>
-        <Link to="/products/pesticides" className="block px-4 py-2 hover:bg-green-100">Insecticides & Pesticides</Link>
-        <Link to="/products/fertilizers" className="block px-4 py-2 hover:bg-green-100">Fertilizers</Link>
-        <Link to="/products/animals" className="block px-4 py-2 hover:bg-green-100">Animal Husbandry Products</Link>
-        <Link to="/products/tools" className="block px-4 py-2 hover:bg-green-100">Tools</Link>
-        <Link to="/products/organic" className="block px-4 py-2 hover:bg-green-100">Organic & Specialty Items</Link>
-    </div>
-</div>
-
-
-                    <Link to="/about" className="hover:text-green-300">About</Link>
-                    <Link to="/contact" className="hover:text-green-300">Contact</Link>
-                    <Link to="/blog" className="hover:text-green-300">Blog</Link>
-
-                    {/* Cart */}
-                    {user?._id && (
-                        <Link to="/cart" className="relative text-2xl">
-                            <FaShoppingCart />
-                            <div className="absolute -top-2 -right-3 bg-red-600 text-white w-5 h-5 rounded-full flex items-center justify-center text-xs">
-                                {context?.cartProductCount}
-                            </div>
-                        </Link>
-                    )}
-
-                    {/* User */}
-                    <div className="relative">
-                        {user?._id ? (
-                            <div onClick={() => setMenuDisplay(!menuDisplay)} className="text-2xl cursor-pointer relative">
-                                {user?.profilePic ? <img src={user?.profilePic} alt="profile" className="w-8 h-8 rounded-full" /> : <FaRegCircleUser />}
-                            </div>
-                        ) : (
-                            <Link to="/login" className="px-4 py-1 rounded-full bg-green-600 hover:bg-green-800">Login</Link>
-                        )}
-
-                        {/* User Dropdown */}
-                        {menuDisplay && (
-                            <div className="absolute bg-white text-green-700 right-0 mt-2 shadow-lg rounded p-2 space-y-1 w-44">
-                                {user?.role === ROLE.ADMIN && (<Link to="/admin-panel/all-products" className="block hover:bg-green-100">Admin Panel</Link>)}
-                                {user?.role === ROLE.GENERAL && (<Link to="/user-panel" className="block hover:bg-green-100">User Panel</Link>)}
-                                <button onClick={handleLogout} className="block text-left w-full hover:bg-red-100 text-red-600">Logout</button>
-                            </div>
-                        )}
-                    </div>
-
-                </nav>
-
-                {/* Mobile Toggle */}
-                <div className="md:hidden text-2xl cursor-pointer" onClick={toggleMenu}>
-                    {isOpen ? <FaTimes /> : <FaBars />}
+            {/* Products Dropdown */}
+            <div className="relative group">
+                <span className="hover:text-green-300 cursor-pointer">Products ▾</span>
+                <div className="absolute left-1/2 transform -translate-x-1/2 top-full hidden group-hover:block bg-white text-green-700 rounded-lg shadow-lg py-2 min-w-[12rem] z-50">
+                    {["Fruits", "Vegetables", "Fertilizers"].map((item) => (
+                        <Link key={item} to={`/products/${item.toLowerCase()}`} className="block px-4 py-2 hover:bg-green-100">{item}</Link>
+                    ))}
                 </div>
             </div>
 
-            {/* Mobile Menu with Animation */}
-            <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={isOpen ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
-                transition={{ duration: 0.4, ease: "easeInOut" }}
-                className={`md:hidden bg-green-600 px-4 py-4 space-y-3 rounded-b overflow-hidden ${isOpen ? 'block' : 'hidden'}`}
-            >
-                <Link to="/" className="block text-lg" onClick={toggleMenu}>Home</Link>
-                <div>
-                    <div onClick={toggleProductDropdown} className="flex justify-between items-center cursor-pointer text-lg">
-                        <span>Products</span>
-                        <span>{productDropdown ? "▲" : "▼"}</span>
-                    </div>
-                    <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={productDropdown ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="pl-4 space-y-1 mt-1 overflow-hidden"
-                    >
-                        <Link to="/products/seeds" onClick={toggleMenu} className="block text-sm">Seeds</Link>
-                        <Link to="/products/fertilizers" onClick={toggleMenu} className="block text-sm">Fertilizers</Link>
-                        <Link to="/products/tools" onClick={toggleMenu} className="block text-sm">Tools</Link>
-                    </motion.div>
-                </div>
+            <Link to="/aboutus" className="hover:text-green-300">About</Link>
+            <Link to="/contact" className="hover:text-green-300">Contact</Link>
+            <Link to="/blog" className="hover:text-green-300">Blog</Link>
 
-                <Link to="/about" className="block text-lg" onClick={toggleMenu}>About</Link>
-                <Link to="/contact" className="block text-lg" onClick={toggleMenu}>Contact</Link>
-                <Link to="/blog" className="block text-lg" onClick={toggleMenu}>Blog</Link>
+            {/* Cart */}
+            {user?._id && (
+                <Link to="/cart" className="relative text-2xl">
+                    <FaShoppingCart />
+                    {context?.cartProductCount > 0 && (
+                        <div className="absolute -top-2 -right-3 bg-red-600 text-white w-5 h-5 rounded-full flex items-center justify-center text-xs">
+                            {context?.cartProductCount}
+                        </div>
+                    )}
+                </Link>
+            )}
 
+            {/* User Dropdown */}
+            <div className="relative">
                 {user?._id ? (
-                    <>
-                        <Link to="/cart" onClick={toggleMenu} className="block text-lg">Cart ({context?.cartProductCount})</Link>
-                        <button onClick={handleLogout} className="w-full text-left text-red-200 hover:text-red-400">Logout</button>
-                    </>
+                    <div onClick={() => setMenuDisplay(!menuDisplay)} className="text-2xl cursor-pointer">
+                        {user?.profilePic ? <img src={user?.profilePic} alt="profile" className="w-8 h-8 rounded-full" /> : <FaRegCircleUser />}
+                    </div>
                 ) : (
-                    <Link to="/login" onClick={toggleMenu} className="block text-lg">Login</Link>
+                    <Link to="/login" className="px-4 py-1 rounded-full bg-green-600 hover:bg-green-700">Login</Link>
                 )}
-            </motion.div>
-        </header>
+
+                {menuDisplay && (
+                    <div className="absolute bg-white text-green-700 right-0 mt-2 shadow-lg rounded p-2 w-44">
+                        {user?.role === ROLE.ADMIN && <Link to="/admin-panel" className="block px-4 py-2 hover:bg-green-100">Admin Panel</Link>}
+                        {user?.role === ROLE.GENERAL && <Link to="/user-panel" className="block px-4 py-2 hover:bg-green-100">User Panel</Link>}
+                        <button onClick={handleLogout} className="block text-left w-full text-red-600 hover:bg-red-100 px-4 py-2">Logout</button>
+                    </div>
+                )}
+            </div>
+        </nav>
+
+        {/* Mobile Menu Toggle */}
+        <div className="md:hidden text-2xl cursor-pointer" onClick={toggleMenu}>
+            {isOpen ? <FaTimes /> : <FaBars />}
+        </div>
+    </div>
+
+    {/* Mobile Menu */}
+    {isOpen && (
+        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} transition={{ duration: 0.4 }} className="md:hidden bg-green-700 px-6 py-4 space-y-3">
+            <Link to="/" onClick={toggleMenu} className="block">Home</Link>
+            <Link to="/about" onClick={toggleMenu} className="block">About</Link>
+            <Link to="/contact" onClick={toggleMenu} className="block">Contact</Link>
+            <Link to="/blog" onClick={toggleMenu} className="block">Blog</Link>
+        </motion.div>
+    )}
+</header>
+
     )
 }
 
 export default Header
+
 
