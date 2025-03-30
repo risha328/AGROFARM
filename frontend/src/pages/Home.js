@@ -7,12 +7,15 @@ import OfferSection from '../components/OfferSection'
 import WhyChooseUs from '../components/WhyChooseUs'
 import Testimonials from '../components/Testimonials'
 import Newsletter from '../components/Newsletter'
+//import AgriculturePromo from '../components/AgriculturePromo'
+import Agri from '../components/Agri'
 
 const Home = () => {
   return (
     <div>
       <CategoryList/>
       <BannerProduct/>
+     <Agri/>
  <OfferSection/>
       <HorizontalCardProduct category={"fruits"} heading={"Top Selling Fruits"}/>
       <HorizontalCardProduct category={"flowers"} heading={"Recommended Flowers"}/>

@@ -84,7 +84,7 @@ const Header = () => {
             </div>
 
             <Link to="/aboutus" className="hover:text-green-300">About</Link>
-            <Link to="/contact" className="hover:text-green-300">Contact</Link>
+            <Link to="/contactus" className="hover:text-green-300">Contact</Link>
             <Link to="/blog" className="hover:text-green-300">Blog</Link>
 
             {/* Cart */}

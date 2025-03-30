@@ -20,6 +20,8 @@ import Orders from '../pages/Orders'
 import Wishlist from '../pages/Wishlist'
 import AboutUs from '../pages/AboutUs'
 import FarmerSell from '../pages/FarmerSell'
+import ContactUs from '../pages/ContactUs'
+import Blog from '../pages/Blog'
 const router = createBrowserRouter([
     {
         path: "/",
@@ -37,6 +39,8 @@ const router = createBrowserRouter([
             {path: "aboutus", element: <AboutUs/>},
             {path: "farmersell", element: <FarmerSell/>},
             { path: "payment", element: <PaymentPage /> },
+            {path: "contactus", element: <ContactUs/>},
+            {path: "blog", element: <Blog/>},
 
             // ✅ Admin Panel Routes
             {
