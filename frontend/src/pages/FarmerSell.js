@@ -76,7 +76,7 @@ export default function SellProductForm() {
       // Create FormData to handle file uploads
       const formData = new FormData();
       formData.append('title', product.title);
-      //formData.append('category', product.category);
+      formData.append('category', product.category);
       formData.append('description', product.description);
       formData.append('price', product.price);
       formData.append('quantity', product.quantity);

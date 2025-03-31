@@ -61,7 +61,7 @@ function App() {
     }}>
       <ToastContainer position='top-center' />
       <Header />
-      <main className='min-h-[calc(100vh-120px)] pt-16 bg-yellow-50'>
+      <main className='min-h-[calc(100vh-120px)] pt-16 bg-green-50'>
         <Outlet />
       </main>
       <Footer />

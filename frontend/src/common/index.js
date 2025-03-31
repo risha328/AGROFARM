@@ -29,12 +29,20 @@ const SummaryApi = {
         url : `${backendDomin}/api/upload-product`,
         method : 'post'
     },
+    uploadProductUser : {
+        url : `${backendDomin}/api/upload-product-user`,
+        method : 'post'
+    },
     allProduct : {
         url : `${backendDomin}/api/get-product`,
         method : 'get'
     },
     updateProduct : {
         url : `${backendDomin}/api/update-product`,
+        method  : 'post'
+    },
+    updateProductUser : {
+        url : `${backendDomin}/api/update-product-user`,
         method  : 'post'
     },
     categoryProduct : {
@@ -80,7 +88,11 @@ const SummaryApi = {
     payment: {
         url: `${backendDomin}/api/create-order`,
         method: 'post'
-    }
+    },
+    userProducts: {
+  url: `${backendDomin}/api/products/user`, // Your backend endpoint for user's products
+  method: "GET"
+}
     
 }
 

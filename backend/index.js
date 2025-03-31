@@ -19,7 +19,6 @@ app.use(cookieParser())
 app.use("/api",router)
 app.use('/api', paymentRoutes);
 
-app.use('/uploads', express.static('uploads'));
 const PORT = 8080 || process.env.PORT
 
 

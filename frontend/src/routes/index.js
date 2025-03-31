@@ -22,6 +22,9 @@ import AboutUs from '../pages/AboutUs'
 import FarmerSell from '../pages/FarmerSell'
 import ContactUs from '../pages/ContactUs'
 import Blog from '../pages/Blog'
+import AddProduct from '../pages/AddProductUser'
+import FetchProductUser from '../pages/FetchProductUser'
+
 const router = createBrowserRouter([
     {
         path: "/",
@@ -41,6 +44,8 @@ const router = createBrowserRouter([
             { path: "payment", element: <PaymentPage /> },
             {path: "contactus", element: <ContactUs/>},
             {path: "blog", element: <Blog/>},
+            {path: '/add-product', element: <AddProduct/>},
+            {path: "/my-product", element:<FetchProductUser/>},
 
             // ✅ Admin Panel Routes
             {

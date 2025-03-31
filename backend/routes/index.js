@@ -23,7 +23,8 @@ const deleteAddToCartProduct = require('../controller/user/deleteAddToCartProduc
 const searchProduct = require('../controller/product/searchProduct')
 const filterProductController = require('../controller/product/filterProduct')
 //const { createOrder, verifyPayment } = require('../controller/order/paymentController');
-
+const UploadProductUserController = require('../controller/product/uploadProductUser')
+const updateProductUserController = require('../controller/product/updateProductUser')
 
 
 router.post("/signup",userSignUpController)
@@ -44,6 +45,8 @@ router.post("/category-product",getCategoryWiseProduct)
 router.post("/product-details",getProductDetails)
 router.get("/search",searchProduct)
 router.post("/filter-product",filterProductController)
+router.post('/upload-product-user',authToken, UploadProductUserController)
+router.post('/update-product-user',authToken,updateProductUserController)
 
 //user add to cart
 router.post("/addtocart",authToken,addToCartController)

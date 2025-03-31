@@ -27,12 +27,12 @@ const AgriculturePromo = () => {
         </p>
 
         {/* Transparent link cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-8">
           <TransparentCard 
             title="For Farmers"
             description="Sell your produce at competitive prices"
             linkText="Start Selling"
-            to="/farmersell"
+            to="/add-product"
             icon="🌱"
           />
           <TransparentCard 
@@ -40,6 +40,24 @@ const AgriculturePromo = () => {
             description="Get fresh produce directly from farms"
             linkText="Browse Products"
             to="/products"
+            icon="🛒"
+          />
+        </div>
+
+
+         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <TransparentCard 
+            title="For Machine Renters"
+            description="Rent Your Own machines"
+            linkText="Rent Machine"
+            to="/product-category?category=machinaries"
+            icon="🌱"
+          />
+          <TransparentCard 
+            title="Labour Apply"
+            description="Application of labour"
+            linkText="Apply to labour role"
+            to="/labour"
             icon="🛒"
           />
         </div>
