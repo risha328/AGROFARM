@@ -57,9 +57,7 @@ const Header = () => {
     <div className="max-w-screen-xl mx-auto px-4 py-4 flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 text-2xl font-bold">
-            <motion.div animate={{ rotate: [0, -5, 5, -5, 0] }} transition={{ repeat: Infinity, duration: 4 }}>
-                <GiFarmTractor className="text-3xl" />
-            </motion.div>
+            
             <span>AGROFARM</span>
         </Link>
 

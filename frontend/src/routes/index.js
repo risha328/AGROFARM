@@ -24,7 +24,7 @@ import ContactUs from '../pages/ContactUs'
 import Blog from '../pages/Blog'
 import AddProduct from '../pages/AddProductUser'
 import FetchProductUser from '../pages/FetchProductUser'
-
+import Labour from '../pages/Labour'
 const router = createBrowserRouter([
     {
         path: "/",
@@ -46,7 +46,7 @@ const router = createBrowserRouter([
             {path: "blog", element: <Blog/>},
             {path: '/add-product', element: <AddProduct/>},
             {path: "/my-product", element:<FetchProductUser/>},
-
+            {path: "/labour", element: <Labour/>},
             // ✅ Admin Panel Routes
             {
                 path: "admin-panel",

@@ -9,6 +9,7 @@ import Testimonials from '../components/Testimonials'
 import Newsletter from '../components/Newsletter'
 //import AgriculturePromo from '../components/AgriculturePromo'
 import Agri from '../components/Agri'
+import RecognizedBy from '../components/RecognizedBy'
 
 const Home = () => {
   return (
@@ -27,12 +28,12 @@ const Home = () => {
       <VerticalCardProduct category={"fertilizers"} heading={"Fertilizers & Soil Conditioners"}/>
       <Testimonials/>
       <VerticalCardProduct category={"animals"} heading={"Animal Husbandry Products"}/>
-      <VerticalCardProduct category={"tools"} heading={"Tools & Equipment"}/>
-      <VerticalCardProduct category={"organics"} heading={"Organic & Specialty Items"}/>
-      <VerticalCardProduct category={"machinaries"} heading={"Machinaries"}/>
+      
+      
       
       
       <Newsletter/>
+      <RecognizedBy/>
     </div>
   )
 }
