@@ -26,6 +26,8 @@ import AddProduct from '../pages/AddProductUser'
 import FetchProductUser from '../pages/FetchProductUser'
 import Labour from '../pages/Labour'
 import Prime from '../pages/Prime'
+
+
 const router = createBrowserRouter([
     {
         path: "/",

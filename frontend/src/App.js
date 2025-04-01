@@ -10,6 +10,7 @@ import Context from './context';
 import { useDispatch } from 'react-redux';
 import { setUserDetails } from './store/userSlice';
 
+
 function App() {
   const dispatch = useDispatch();
   const [cartProductCount, setCartProductCount] = useState(0);
@@ -60,7 +61,10 @@ function App() {
       fetchUserAddToCart
     }}>
       <ToastContainer position='top-center' />
+     
+     
       <Header />
+      
       <main className='min-h-[calc(100vh-120px)] pt-16 bg-green-50'>
         <Outlet />
       </main>
