@@ -39,7 +39,7 @@ const AgriculturePromo = () => {
             title="For Buyers"
             description="Get fresh produce directly from farms"
             linkText="Browse Products"
-            to="/products"
+            to="/product-category"
             icon="🛒"
           />
         </div>

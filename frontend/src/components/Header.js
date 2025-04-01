@@ -80,7 +80,7 @@ const Header = () => {
                     ))}
                 </div>
             </div>
-
+            <Link to="/prime" className="hover:text-green-300">AgroPrime</Link>
             <Link to="/aboutus" className="hover:text-green-300">About</Link>
             <Link to="/contactus" className="hover:text-green-300">Contact</Link>
             <Link to="/blog" className="hover:text-green-300">Blog</Link>
@@ -127,6 +127,7 @@ const Header = () => {
     {isOpen && (
         <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} transition={{ duration: 0.4 }} className="md:hidden bg-green-700 px-6 py-4 space-y-3">
             <Link to="/" onClick={toggleMenu} className="block">Home</Link>
+            <Link to="/prime" onClick={toggleMenu} className='block'>AgroPrime</Link>
             <Link to="/about" onClick={toggleMenu} className="block">About</Link>
             <Link to="/contact" onClick={toggleMenu} className="block">Contact</Link>
             <Link to="/blog" onClick={toggleMenu} className="block">Blog</Link>

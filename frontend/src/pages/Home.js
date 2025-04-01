@@ -10,7 +10,7 @@ import Newsletter from '../components/Newsletter'
 //import AgriculturePromo from '../components/AgriculturePromo'
 import Agri from '../components/Agri'
 import RecognizedBy from '../components/RecognizedBy'
-
+import PrimeHome from '../components/PrimeHome'
 const Home = () => {
   return (
     <div>
@@ -20,6 +20,7 @@ const Home = () => {
  <OfferSection/>
       <HorizontalCardProduct category={"fruits"} heading={"Top Selling Fruits"}/>
       <HorizontalCardProduct category={"flowers"} heading={"Recommended Flowers"}/>
+      <PrimeHome/>
       <HorizontalCardProduct category={"vegetables"} heading={"Top Selling Vegetables"}/>
      <HorizontalCardProduct category={"seeds"} heading={"Top Selling Seeds"}/>
      <WhyChooseUs/>
