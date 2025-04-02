@@ -26,6 +26,8 @@ import AddProduct from '../pages/AddProductUser'
 import FetchProductUser from '../pages/FetchProductUser'
 import Labour from '../pages/Labour'
 import Prime from '../pages/Prime'
+import AdminAnalytics from '../pages/AdminAnalytics'
+import AdminSettings from '../pages/AdminSettings'
 
 
 const router = createBrowserRouter([
@@ -57,7 +59,10 @@ const router = createBrowserRouter([
                 element: <AdminPanel />,
                 children: [
                     { path: "all-users", element: <AllUsers /> },
-                    { path: "all-products", element: <AllProducts /> }
+                    { path: "all-products", element: <AllProducts /> },
+                    {path: 'analytics', element: <AdminAnalytics/>},
+                    {path: 'settings', element: <AdminSettings/>}
+                   
                 ]
             },
 

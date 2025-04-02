@@ -1,11 +1,13 @@
 import React, { useContext, useState } from 'react';
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash,FaGoogle } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
 import SummaryApi from '../common';
 import { toast } from 'react-toastify';
 import Context from '../context';
 import { motion } from "framer-motion";
 import { GiPlantSeed } from "react-icons/gi";
+import app from '../firebase'
+import {getAuth, signInWithPopup,GoogleAuthProvider} from 'firebase/auth'
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -38,6 +40,19 @@ const Login = () => {
             toast.error(dataApi.message);
         }
     };
+
+    const handleGoogleLogin = ()=>{
+         const auth = getAuth(app)
+         const provider = new GoogleAuthProvider()
+         signInWithPopup(auth,provider)
+         .then((result)=>{
+            console.log(result)
+            navigate('/')
+         })
+         .catch(err=>{
+            console.log(err)
+         })
+    }
 
     return (
         <section className='min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-green-100'>
@@ -101,6 +116,23 @@ const Login = () => {
                         Login
                     </button>
                 </form>
+
+
+                {/* Divider */}
+                <div className='flex items-center my-4'>
+                    <div className='flex-1 border-t border-gray-300'></div>
+                    <span className='px-3 text-gray-500 text-sm'>OR</span>
+                    <div className='flex-1 border-t border-gray-300'></div>
+                </div>
+
+                {/* Google Login Button */}
+                <button 
+                    onClick={handleGoogleLogin}
+                    className='w-full bg-white border border-gray-300 text-gray-700 py-2 rounded-full hover:bg-gray-50 transition-transform hover:scale-105 flex items-center justify-center gap-2'
+                >
+                    <FaGoogle className='text-red-500' />
+                    Continue with Google
+                </button>
 
                 <p className='mt-4 text-center text-sm'>
                     Don't have an account? <Link to={"/sign-up"} className='text-green-600 hover:underline'>Sign Up</Link>

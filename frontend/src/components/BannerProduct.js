@@ -7,17 +7,17 @@ import ban2 from '../assest/banner/ban2.jpeg';
 import ban3 from '../assest/banner/ban3.jpeg';
 import ban4 from '../assest/banner/ban4.jpeg';
 
-import image1Mobile from '../assest/banner/img1_mobile.jpg';
-import image2Mobile from '../assest/banner/img2_mobile.webp';
-import image3Mobile from '../assest/banner/img3_mobile.jpg';
-import image4Mobile from '../assest/banner/img4_mobile.jpg';
-import image5Mobile from '../assest/banner/img5_mobile.png';
+import mobban1 from '../assest/banner/mobban1.jpeg';
+
+import mobban2 from '../assest/banner/mobban2.jpeg';
+import mobban3 from '../assest/banner/mobban3.jpeg';
+//import image5Mobile from '../assest/banner/img5_mobile.png';
 
 const BannerProduct = () => {
     const [currentImage, setCurrentImage] = useState(0);
 
     const desktopImages = [ban1web, ban2, ban3, ban4];
-    const mobileImages = [image1Mobile, image2Mobile, image3Mobile, image4Mobile, image5Mobile];
+    const mobileImages = [mobban1, mobban2, mobban3 ];
 
     const nextImage = () => {
         setCurrentImage((prev) => (prev < desktopImages.length - 1 ? prev + 1 : 0));

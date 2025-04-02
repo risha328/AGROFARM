@@ -46,11 +46,16 @@ const Header = () => {
         }
     }
 
-    const handleSearch = (e) => {
-        const { value } = e.target
-        setSearch(value)
-        navigate(value ? `/search?q=${value}` : "/search")
+    const handleSearch = (e)=>{
+    const { value } = e.target
+    setSearch(value)
+
+    if(value){
+      navigate(`/search?q=${value}`)
+    }else{
+      navigate("/search")
     }
+  }
 
     return (
         <header className="bg-green-800 text-white shadow-lg fixed top-0 w-full z-50">
@@ -62,10 +67,24 @@ const Header = () => {
         </Link>
 
         {/* Search Bar - Visible on large screens */}
-        <div className="hidden lg:flex items-center w-full max-w-md border border-green-500 rounded-full bg-green-600 px-3">
-            <input type="text" placeholder="Search products..." className="w-full bg-transparent py-2 text-white outline-none" />
-            <GrSearch className="text-xl text-white cursor-pointer" />
-        </div>
+        {/* Small Animated Search Bar - Visible on large screens */}
+{/* Professional Animated Search Bar */}
+<div className="hidden lg:flex items-center w-full max-w-[180px] border border-gray-200 rounded-full hover:border-gray-300 focus-within:border-green-500 focus-within:shadow-md focus-within:max-w-[280px] transition-[max-width,box-shadow,border-color] duration-500 ease-[cubic-bezier(0.2,0,0,1)] pl-3 pr-1.5 py-1.5 bg-white">
+    <input
+        type="text"
+        placeholder="Search products..."
+        className="w-full outline-none text-gray-800 placeholder-gray-400 bg-transparent text-sm tracking-wide transition-all duration-300 ease-out"
+        onChange={handleSearch}
+        value={search}
+        aria-label="Search products"
+    />
+    <button
+        className="flex items-center justify-center w-7 h-7 rounded-full bg-gradient-to-br from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-1"
+        aria-label="Submit search"
+    >
+        <GrSearch className="text-xs md:text-sm transform transition-transform duration-300 hover:scale-110" />
+    </button>
+</div>
 
         {/* Navigation */}
         <nav className="hidden md:flex items-center gap-6">
