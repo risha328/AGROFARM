@@ -11,14 +11,20 @@ import Newsletter from '../components/Newsletter'
 import Agri from '../components/Agri'
 import RecognizedBy from '../components/RecognizedBy'
 import PrimeHome from '../components/PrimeHome'
+import MachineAdBanner from '../components/MachineAdBanner'
 const Home = () => {
   return (
     <div>
       <CategoryList/>
       <BannerProduct/>
+      <RecognizedBy/>
      <Agri/>
+     <HorizontalCardProduct category={"fruits"} heading={"Top Selling Fruits"}/>
+    < div>
+     <MachineAdBanner/>
+     </div>
  <OfferSection/>
-      <HorizontalCardProduct category={"fruits"} heading={"Top Selling Fruits"}/>
+      
       <HorizontalCardProduct category={"flowers"} heading={"Recommended Flowers"}/>
       <PrimeHome/>
       <HorizontalCardProduct category={"vegetables"} heading={"Top Selling Vegetables"}/>
@@ -28,11 +34,7 @@ const Home = () => {
       <VerticalCardProduct category={"pesticides"} heading={"Insecticides & Pesticides"}/>
       <VerticalCardProduct category={"fertilizers"} heading={"Fertilizers & Soil Conditioners"}/>
       <Testimonials/>
-      <VerticalCardProduct category={"animals"} heading={"Animal Husbandry Products"}/>
-      
-      
-      
-      
+      <VerticalCardProduct category={"animals"} heading={"Animal Husbandry Products"}/>  
       <Newsletter/>
       <RecognizedBy/>
     </div>

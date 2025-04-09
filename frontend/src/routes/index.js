@@ -32,6 +32,7 @@ import FarmerAgrosubDash from '../pages/FarmerAgrosubDash'
 import MachineryPage from '../pages/MachineryPage'
 import UploadPage from '../pages/UploadPage'
 import MachineryDetails from '../pages/MachineryDetails'
+import EditMachineryForm from '../pages/EditMachineryForm'
 
 const router = createBrowserRouter([
     {
@@ -61,6 +62,7 @@ const router = createBrowserRouter([
             {path:"/machine", element:<MachineryPage />},
             {path: "/up", element: <UploadPage/>},
             {path: '/machinery/:id', element: <MachineryDetails/>},
+            {path: '/edit-machinery/:id', element: <EditMachineryForm/>},
             // ✅ Admin Panel Routes
             {
                 path: "admin-panel",

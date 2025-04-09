@@ -11,21 +11,17 @@ import { useDispatch } from 'react-redux';
 import { setUserDetails } from './store/userSlice';
 import FloatingChatbot from './components/FloatingChatBot';
 
-
 function App() {
   const dispatch = useDispatch();
   const [cartProductCount, setCartProductCount] = useState(0);
 
-  // ✅ Get user details
   const fetchUserDetails = useCallback(async () => {
     try {
       const response = await fetch(SummaryApi.current_user.url, {
         method: SummaryApi.current_user.method,
         credentials: 'include'
       });
-
       const data = await response.json();
-
       if (data.success) {
         dispatch(setUserDetails(data.data));
       }
@@ -34,14 +30,12 @@ function App() {
     }
   }, [dispatch]);
 
-  // ✅ Get cart product count
   const fetchUserAddToCart = useCallback(async () => {
     try {
       const response = await fetch(SummaryApi.addToCartProductCount.url, {
         method: SummaryApi.addToCartProductCount.method,
         credentials: 'include'
       });
-
       const data = await response.json();
       setCartProductCount(data?.data?.count || 0);
     } catch (error) {
@@ -49,7 +43,6 @@ function App() {
     }
   }, []);
 
-  // ✅ Load user & cart data once on app load
   useEffect(() => {
     fetchUserDetails();
     fetchUserAddToCart();
@@ -61,16 +54,26 @@ function App() {
       cartProductCount,
       fetchUserAddToCart
     }}>
-      <ToastContainer position='top-center' />
-     
+      {/* Responsive Toast Container */}
+      <ToastContainer
+        position='top-center'
+        className="text-sm md:text-base" // Responsive text size
+        toastClassName="!rounded-lg !min-h-[40px] md:!min-h-[50px]"
+      />
      
       <Header />
       
-      <main className='min-h-[calc(100vh-120px)] pt-16 bg-green-50'>
-        <Outlet />
+      {/* Responsive Main Content */}
+      <main className='min-h-[calc(100vh-120px)] pt-16 bg-green-50 px-4 sm:px-6 lg:px-8'>
+        <div className='max-w-7xl mx-auto'>
+          <Outlet />
+        </div>
       </main>
+      
       <Footer />
-      <FloatingChatbot/>
+      
+      {/* Responsive Floating Chatbot */}
+      <FloatingChatbot className="bottom-4 right-4 sm:bottom-6 sm:right-6" />
     </Context.Provider>
   );
 }

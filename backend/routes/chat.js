@@ -3,7 +3,7 @@ const router = express.Router();
 const axios = require("axios");
 
 // Option 1: OpenRouter (Free GPT-3.5 via OpenRouter.ai)
-const OPENROUTER_API_KEY = "";
+const OPENROUTER_API_KEY = "YOUR_OPENROUTER_API_KEY";
 
 router.post("/", async (req, res) => {
   const { message } = req.body;
