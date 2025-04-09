@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import imageCompression from "browser-image-compression";
 
 export default function MachineryUploadForm() {
@@ -14,6 +15,7 @@ export default function MachineryUploadForm() {
   });
 
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = async (e) => {
     const { name, value, files } = e.target;
@@ -37,6 +39,7 @@ export default function MachineryUploadForm() {
     try {
       await axios.post("http://localhost:8080/api/machineries", formData);
       alert("Machinery uploaded successfully!");
+      navigate("/machine");
       setFormData({
         name: "",
         description: "",

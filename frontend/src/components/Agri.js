@@ -50,7 +50,7 @@ const AgriculturePromo = () => {
             title="For Machine Renters"
             description="Rent Your Own machines"
             linkText="Rent Machine"
-            to="/product-category?category=machinaries"
+            to="/up"
             icon="🌱"
           />
           <TransparentCard 
