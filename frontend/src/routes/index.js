@@ -28,7 +28,10 @@ import Labour from '../pages/Labour'
 import Prime from '../pages/Prime'
 import AdminAnalytics from '../pages/AdminAnalytics'
 import AdminSettings from '../pages/AdminSettings'
-
+import FarmerAgrosubDash from '../pages/FarmerAgrosubDash'
+import MachineryPage from '../pages/MachineryPage'
+import UploadPage from '../pages/UploadPage'
+import MachineryDetails from '../pages/MachineryDetails'
 
 const router = createBrowserRouter([
     {
@@ -39,6 +42,7 @@ const router = createBrowserRouter([
             { path: "", element: <Home /> },
             { path: "login", element: <Login /> },
             { path: "forgot-password", element: <ForgotPassowrd /> },
+            {path: "reset-password", element: <ForgotPassowrd />},
             { path: "sign-up", element: <SignUp /> },
             { path: "product-category", element: <CategoryProduct /> },
             { path: "product/:id", element: <ProductDetails /> },
@@ -53,6 +57,10 @@ const router = createBrowserRouter([
             {path: "/my-product", element:<FetchProductUser/>},
             {path: "/labour", element: <Labour/>},
             {path: '/prime', element: <Prime/>},
+            {path: '/farmer-dashboard', element: <FarmerAgrosubDash/>},
+            {path:"/machine", element:<MachineryPage />},
+            {path: "/up", element: <UploadPage/>},
+            {path: '/machinery/:id', element: <MachineryDetails/>},
             // ✅ Admin Panel Routes
             {
                 path: "admin-panel",

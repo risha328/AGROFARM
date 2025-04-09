@@ -55,7 +55,7 @@ const PaymentPage = () => {
 
         if (orderData.success) {
             const options = {
-                key: process.env.REACT_APP_RAZORPAY_KEY_ID,
+                key: process.env.REACT_APP_RAZORPAY_KEY,
                 amount: totalAmount * 100,
                 currency: "INR",
                 name: "AGROFARM",

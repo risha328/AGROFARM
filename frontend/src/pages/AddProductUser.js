@@ -21,7 +21,7 @@ const AddProductUser = () => {
       {/**upload product component */}
       <div className='py-4'>
         <UploadProduct 
-          onClose={() => navigate('/my-product')} 
+          onClose={() => navigate('/')} 
           fetchData={() => {}} // This can be removed or kept for consistency
         />
       </div>

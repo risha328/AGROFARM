@@ -90,9 +90,22 @@ const SummaryApi = {
         method: 'post'
     },
     userProducts: {
-  url: `${backendDomin}/api/products/user`, // Your backend endpoint for user's products
+  url: `${backendDomin}/api/user-products`, // Your backend endpoint for user's products
   method: "GET"
-}
+    
+},
+chatbot: {
+    url: `${backendDomin}/api/chat`, // ✅ Correct endpoint for chatbot
+    method: "post"
+  },
+  forgotPassword: {
+    url: `${backendDomin}/api/forgot-password`, 
+    method: "POST"// ✅ Correct endpoint for chatbot
+  },
+  resetPassword: {
+        url: "/api/auth/reset-password",
+        method: "POST"
+    }
     
 }
 

@@ -9,6 +9,7 @@ import SummaryApi from './common';
 import Context from './context';
 import { useDispatch } from 'react-redux';
 import { setUserDetails } from './store/userSlice';
+import FloatingChatbot from './components/FloatingChatBot';
 
 
 function App() {
@@ -69,6 +70,7 @@ function App() {
         <Outlet />
       </main>
       <Footer />
+      <FloatingChatbot/>
     </Context.Provider>
   );
 }

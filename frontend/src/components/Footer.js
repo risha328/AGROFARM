@@ -19,11 +19,11 @@ import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
 
 const Footer = () => {
   return (
-    <footer className="bg-green-700 text-white py-8">
+    <footer className="bg-green-800 text-white py-8">
       <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-6">
         {/* Company Info */}
         <div>
-          <h2 className="text-xl font-bold mb-3">AgriCo</h2>
+          <h2 className="text-xl font-bold mb-3">AGROFARM</h2>
           <p>Your trusted partner in agricultural products and solutions.</p>
         </div>
 
@@ -61,13 +61,13 @@ const Footer = () => {
           </div>
 
           <h3 className="text-lg font-semibold mt-4 mb-2">Contact Us</h3>
-          <p>Email: support@agrishop.com</p>
+          <p>Email: support@agrofarm.com</p>
           <p>Phone: +1 234 567 890</p>
         </div>
       </div>
 
       <div className="text-center text-sm border-t border-white/20 mt-6 pt-4">
-        &copy; {new Date().getFullYear()} AgriShop. All rights reserved.
+        &copy; {new Date().getFullYear()} AGROFARM. All rights reserved.
       </div>
     </footer>
   );
