@@ -6,8 +6,7 @@ import { toast } from 'react-toastify';
 import Context from '../context';
 import { motion } from "framer-motion";
 import { GiPlantSeed } from "react-icons/gi";
-import app from '../firebase'
-import {getAuth, signInWithPopup,GoogleAuthProvider} from 'firebase/auth'
+
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -41,18 +40,6 @@ const Login = () => {
         }
     };
 
-    const handleGoogleLogin = ()=>{
-         const auth = getAuth(app)
-         const provider = new GoogleAuthProvider()
-         signInWithPopup(auth,provider)
-         .then((result)=>{
-            console.log(result)
-            navigate('/')
-         })
-         .catch(err=>{
-            console.log(err)
-         })
-    }
 
     return (
         <section className='min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-green-100'>
@@ -127,7 +114,7 @@ const Login = () => {
 
                 {/* Google Login Button */}
                 <button 
-                    onClick={handleGoogleLogin}
+                    
                     className='w-full bg-white border border-gray-300 text-gray-700 py-2 rounded-full hover:bg-gray-50 transition-transform hover:scale-105 flex items-center justify-center gap-2'
                 >
                     <FaGoogle className='text-green-500' />
