@@ -41,6 +41,10 @@ const SummaryApi = {
         url : `${backendDomin}/api/update-product`,
         method  : 'post'
     },
+    deleteProduct: {
+    url: `${backendDomin}/api/products/delete`,
+    method: "DELETE"
+  },
     updateProductUser : {
         url : `${backendDomin}/api/update-product-user`,
         method  : 'post'
@@ -105,7 +109,85 @@ chatbot: {
   resetPassword: {
         url: "/api/auth/reset-password",
         method: "POST"
-    }
+    },
+    signUPAdmin: {
+        url: `${backendDomin}/api/admin/signup`, // <-- Make sure this is correct
+        method: 'POST',
+    },
+    signInAdmin: {
+        url: `${backendDomin}/api/admin/signin`, // <-- Make sure this is correct
+        method: 'POST',
+    },
+   
+    verifyPayment: {
+        url: `${backendDomin}/api/verify-payment`,
+        method: 'POST'
+    },
+    placeOrder: {
+        url: `${backendDomin}/api/order/place`,
+        method: 'POST'
+    },
+    userOrders: {
+  url: `${backendDomin}/api/user/orders`,
+  method: 'GET'
+},
+googleLogin: {
+        url: "/api/user/google-login", // 👈 this fixes your error
+        method: "POST"
+    },
+    // ✅ Seller APIs
+    sellerAddProduct: {
+        url: `${backendDomin}/api/seller-products/add`,
+        method: 'POST'
+    },
+    sellerGetAllProducts: {
+        url: `${backendDomin}/api/seller-products/get-product`,
+        method: 'GET'
+    },
+    sellerUpdateProduct: (productId) => ({
+        url: `${backendDomin}/api/seller-products/update/${productId}`,
+        method: 'PUT'
+    }),
+    sellerDeleteProduct: (productId) => ({
+        url: `${backendDomin}/api/seller-products/delete/${productId}`,
+        method: 'DELETE'
+    }),
+    sellerGetProductById: {
+    url: `${backendDomin}/api/seller-products/get-product`, // GET /:id will be appended dynamically
+    method: "GET",
+  },
+sellerProductDetails: {
+    url: `${backendDomin}/api/seller/products`, // Endpoint to fetch product details
+    method: 'get'               // HTTP method
+  },
+  sellerGetOrderById: {
+  url: `${backendDomin}/api/seller/orders`,
+  method: 'get'
+},
+sellerUpdateOrderStatus: {
+  url: `${backendDomin}/api/seller/orders`,
+  method: 'patch'
+},
+  // Create seller order
+  createSellerOrder: {
+    url: `${backendDomin}/api/seller/orders`,   // Endpoint to create new order
+    method: 'post'              // HTTP method
+  },
+  
+  // Additional APIs that might be needed:
+  initiatePayment: {            // For online payments
+    url: `${backendDomin}/api/payments/initiate`,
+    method: 'post'
+  },
+  
+  getShippingOptions: {         // For dynamic shipping options
+    url: `${backendDomin}/api/shipping/options`,
+    method: 'get'
+  },
+//   gformResponses: {
+//     url: `${backendDomin}/api/gform-responses`,
+//     method: "get",
+//   },
     
 }
 

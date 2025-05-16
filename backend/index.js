@@ -7,6 +7,11 @@ const router = require('./routes')
 const paymentRoutes = require('./routes/payment');
 const chatRoute = require("./routes/chat");
 const machineryRoutes = require("./routes/machineryRoutes");
+const adminRoutes = require("./routes/adminRoutes") // Add this line
+const orderRoutes = require('./routes/orderRoutes');
+const sellerProductRoutes = require('./routes/sellerProductRoutes');
+const gformRoutes = require('./routes/gformRoutes');
+
 
 const app = express()
 app.use(cors({
@@ -23,6 +28,11 @@ app.use("/api",router)
 app.use('/api', paymentRoutes);
 app.use("/api/chat", chatRoute);
 app.use("/api/machineries", machineryRoutes);
+app.use("/api/admin", adminRoutes) // Add this line
+app.use('/api', orderRoutes);
+app.use("/api/seller-products", sellerProductRoutes);
+app.use('/api', gformRoutes);
+
 
 const PORT = 8080 || process.env.PORT
 

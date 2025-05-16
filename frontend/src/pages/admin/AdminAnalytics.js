@@ -4,7 +4,7 @@ import {
   FiTrendingUp, FiCalendar, FiRefreshCw, FiDownload,
   FiTruck, FiPackage, FiDroplet, FiSun, FiChevronDown
 } from 'react-icons/fi';
-import { BarChart, PieChart, LineChart } from '../components/Charts';
+import { BarChart, PieChart, LineChart } from '../../components/Charts';
 import { CSVLink } from 'react-csv';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';

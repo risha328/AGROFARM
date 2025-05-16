@@ -61,21 +61,35 @@ const PaymentPage = () => {
                 name: "AGROFARM",
                 description: "Order Payment",
                 order_id: orderData.order.id,
+                // handler: async function (response) {
+                //     const verifyRes = await fetch('/api/verify-payment', {
+                //         method: 'POST',
+                //         headers: { 'Content-Type': 'application/json' },
+                //         body: JSON.stringify(response)
+                //     });
+                //     const verifyData = await verifyRes.json();
+                //     if (verifyData.success) {
+                //         toast.success('Payment Successful!');
+                //         fetchUserAddToCart();
+                //         navigate('/thank-you');
+                //     } else {
+                //         toast.error('Payment Verification Failed.');
+                //     }
+                // },
+
                 handler: async function (response) {
-                    const verifyRes = await fetch('/api/verify-payment', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(response)
-                    });
-                    const verifyData = await verifyRes.json();
-                    if (verifyData.success) {
-                        toast.success('Payment Successful!');
-                        fetchUserAddToCart();
-                        navigate('/thank-you');
-                    } else {
-                        toast.error('Payment Verification Failed.');
-                    }
-                },
+    toast.success('Payment Successful! Redirecting...');
+    navigate('/thankyou', {
+        state: {
+            paymentInfo: response,
+            totalAmount,
+            shippingAddress: shipping,
+            userId: localStorage.getItem("userId"), // or from context
+            items: [] // Optional: fetch and pass cart items
+        }
+    });
+},
+
                 theme: { color: "#059669" }
             };
 

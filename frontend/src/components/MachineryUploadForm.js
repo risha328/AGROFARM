@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import imageCompression from "browser-image-compression";
-import { Upload, HardHat, MapPin, DollarSign, User, Mail, Loader2 } from "lucide-react";
+import { Upload, HardHat, MapPin, DollarSign, User, Mail, Loader2 ,IndianRupee} from "lucide-react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -144,7 +144,8 @@ export default function MachineryUploadForm() {
               <label className="block text-sm font-medium text-gray-700">Daily Rental Rate (₹) *</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <DollarSign className="h-5 w-5 text-gray-400" />
+                  <IndianRupee className="h-5 w-5 text-gray-400" />
+                  
                 </div>
                 <input
                   type="number"

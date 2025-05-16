@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { FaShoppingCart, FaBars, FaTimes } from "react-icons/fa"
-import { GiFarmTractor } from "react-icons/gi"
+import { FiChevronDown } from "react-icons/fi"
 import { FaRegCircleUser } from "react-icons/fa6"
 import { GrSearch } from "react-icons/gr"
 import { motion } from 'framer-motion'
@@ -28,7 +28,6 @@ const Header = () => {
     const [search, setSearch] = useState(searchQuery)
 
     const toggleMenu = () => setIsOpen(!isOpen)
-    const toggleProductDropdown = () => setProductDropdown(!productDropdown)
 
     const handleLogout = async () => {
         const fetchData = await fetch(SummaryApi.logout_user.url, {
@@ -46,114 +45,361 @@ const Header = () => {
         }
     }
 
-    const handleSearch = (e)=>{
-    const { value } = e.target
-    setSearch(value)
+    const handleSearch = (e) => {
+        const { value } = e.target
+        setSearch(value)
 
-    if(value){
-      navigate(`/search?q=${value}`)
-    }else{
-      navigate("/search")
+        if (value) {
+            navigate(`/search?q=${value}`)
+        } else {
+            navigate("/search")
+        }
     }
-  }
+
+    const handleSellClick = () => {
+        if (user?._id) {
+            navigate('/sell-product')
+        } else {
+            toast.info('Please login to sell products')
+            navigate('/login')
+        }
+    }
 
     return (
         <header className="bg-green-800 text-white shadow-lg fixed top-0 w-full z-50">
-    <div className="max-w-screen-xl mx-auto px-4 py-4 flex justify-between items-center">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 text-2xl font-bold">
-            
-            <span>AGROFARM</span>
-        </Link>
-
-        {/* Search Bar - Visible on large screens */}
-        {/* Small Animated Search Bar - Visible on large screens */}
-{/* Professional Animated Search Bar */}
-<div className="hidden lg:flex items-center w-full max-w-[180px] border border-gray-200 rounded-full hover:border-gray-300 focus-within:border-green-500 focus-within:shadow-md focus-within:max-w-[280px] transition-[max-width,box-shadow,border-color] duration-500 ease-[cubic-bezier(0.2,0,0,1)] pl-3 pr-1.5 py-1.5 bg-white">
-    <input
-        type="text"
-        placeholder="Search products..."
-        className="w-full outline-none text-gray-800 placeholder-gray-400 bg-transparent text-sm tracking-wide transition-all duration-300 ease-out"
-        onChange={handleSearch}
-        value={search}
-        aria-label="Search products"
-    />
-    <button
-        className="flex items-center justify-center w-7 h-7 rounded-full bg-gradient-to-br from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-1"
-        aria-label="Submit search"
-    >
-        <GrSearch className="text-xs md:text-sm transform transition-transform duration-300 hover:scale-110" />
-    </button>
-</div>
-
-        {/* Navigation */}
-        <nav className="hidden md:flex items-center gap-6">
-            <Link to="/" className="hover:text-green-300">Home</Link>
-
-            {/* Products Dropdown */}
-            <div className="relative group">
-                <span className="hover:text-green-300 cursor-pointer">Products ▾</span>
-                <div className="absolute left-1/2 transform -translate-x-1/2 top-full hidden group-hover:block bg-white text-green-700 rounded-lg shadow-lg py-2 min-w-[12rem] z-50">
-                    {["Fruits", "Vegetables", "Fertilizers"].map((item) => (
-                        <Link key={item} to={`/products/${item.toLowerCase()}`} className="block px-4 py-2 hover:bg-green-100">{item}</Link>
-                    ))}
+            <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+                {/* Logo Section */}
+                <div className="flex items-center flex-shrink-0">
+                    <Link
+                        to="/"
+                        className="flex items-center gap-3 hover:opacity-90 transition-opacity"
+                    >
+                        <img
+                            src="/assets/logos/logo.jpg"
+                            alt="AgroFarm Logo"
+                            className="h-10 w-10 rounded-full object-cover border-2 border-white shadow-md"
+                        />
+                        <span className="text-xl font-bold tracking-tight hidden sm:block">
+                            AGROFARM
+                        </span>
+                    </Link>
                 </div>
-            </div>
-            <Link to="/prime" className="hover:text-green-300">AgroPrime</Link>
-            <Link to="/aboutus" className="hover:text-green-300">About</Link>
-            <Link to="/contactus" className="hover:text-green-300">Contact</Link>
-            <Link to="/blog" className="hover:text-green-300">Blog</Link>
 
-            {/* Cart */}
-            {user?._id && (
-                <Link to="/cart" className="relative text-2xl">
-                    <FaShoppingCart />
-                    {context?.cartProductCount > 0 && (
-                        <div className="absolute -top-2 -right-3 bg-red-600 text-white w-5 h-5 rounded-full flex items-center justify-center text-xs">
-                            {context?.cartProductCount}
+                {/* Search Bar - Centered */}
+                <div className="hidden lg:flex flex-1 max-w-xl mx-8">
+                    <div className="relative w-full">
+                        <input
+                            type="text"
+                            placeholder="Search products..."
+                            className="w-full py-2 px-4 pr-10 rounded-full text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500"
+                            value={search}
+                            onChange={handleSearch}
+                        />
+                        <button
+                            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-green-600 hover:bg-green-700 text-white p-1.5 rounded-full transition-colors"
+                            aria-label="Search"
+                        >
+                            <GrSearch className="text-sm" />
+                        </button>
+                    </div>
+                </div>
+
+                {/* Desktop Navigation */}
+                <nav className="hidden md:flex items-center space-x-6">
+                    <div className="flex items-center space-x-6">
+                        <Link
+                            to="/"
+                            className="text-sm font-medium hover:text-green-200 transition-colors"
+                        >
+                            Home
+                        </Link>
+
+                        {/* Products Dropdown */}
+                        <div className="relative group">
+                            <button className="text-sm font-medium hover:text-green-200 transition-colors flex items-center">
+                                Products <FiChevronDown className="ml-1" />
+                            </button>
+                            <div className="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 invisible group-hover:visible">
+                                {["Fruits", "Flowers", "Vegetables", "Seeds","Plant Growth Promoters","Insecticides","Fertilizers", "Animal Husbandry Products", "Tools & Equipment", "Organic & Specialty Items", "Machinaries"].map((item) => (
+                                    <Link
+                                        key={item}
+                                        to={`/products/${item.toLowerCase()}`}
+                                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50"
+                                    >
+                                        {item}
+                                    </Link>
+                                ))}
+                            </div>
+                        </div>
+
+                        <Link
+                            to="/prime"
+                            className="text-sm font-medium hover:text-green-200 transition-colors"
+                        >
+                            AgroPrime
+                        </Link>
+
+                        <Link
+                            to="/aboutus"
+                            className="text-sm font-medium hover:text-green-200 transition-colors"
+                        >
+                            About
+                        </Link>
+
+                        <Link
+                            to="/contactus"
+                            className="text-sm font-medium hover:text-green-200 transition-colors"
+                        >
+                            Contact
+                        </Link>
+
+                        <Link
+                            to="/blog"
+                            className="text-sm font-medium hover:text-green-200 transition-colors"
+                        >
+                            Blog
+                        </Link>
+                    </div>
+
+                    {/* Sell Button */}
+                  
+<Link
+  to={user?._id ? "/add-product" : "/login"}
+  onClick={(e) => {
+    if (!user?._id) {
+      e.preventDefault();
+      toast.info('Please login to sell products');
+      navigate('/login');
+    }
+  }}
+  className="ml-4"
+>
+  <button
+    className="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white font-medium rounded-md text-sm transition-all duration-300 flex items-center gap-1 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+  >
+    <span className="hidden sm:inline">SELL</span>
+    <span className="sm:hidden">
+      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+        <path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" />
+      </svg>
+    </span>
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 hidden sm:inline" viewBox="0 0 20 20" fill="currentColor">
+      <path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" />
+    </svg>
+  </button>
+</Link>
+
+                    {/* Cart Icon */}
+                    {user?._id && (
+                        <div className="relative ml-4">
+                            <Link to="/cart" className="flex items-center">
+                                <FaShoppingCart className="text-xl hover:text-green-200 transition-colors" />
+                                {context?.cartProductCount > 0 && (
+                                    <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                                        {context?.cartProductCount}
+                                    </span>
+                                )}
+                            </Link>
                         </div>
                     )}
-                </Link>
-            )}
 
-            {/* User Dropdown */}
-            <div className="relative">
-                {user?._id ? (
-                    <div onClick={() => setMenuDisplay(!menuDisplay)} className="text-2xl cursor-pointer">
-                        {user?.profilePic ? <img src={user?.profilePic} alt="profile" className="w-8 h-8 rounded-full" /> : <FaRegCircleUser />}
-                    </div>
-                ) : (
-                    <Link to="/login" className="px-4 py-1 rounded-full bg-green-600 hover:bg-green-700">Login</Link>
-                )}
+                    {/* User Menu */}
+                    <div className="relative ml-4">
+                        {user?._id ? (
+                            <div className="flex items-center space-x-2">
+                                <button
+                                    onClick={() => setMenuDisplay(!menuDisplay)}
+                                    className="focus:outline-none relative"
+                                >
+                                    {/* User Avatar with Initial */}
+                                    {user?.profilePic ? (
+                                        <img
+                                            src={user.profilePic}
+                                            alt="Profile"
+                                            className="w-8 h-8 rounded-full object-cover border-2 border-white"
+                                        />
+                                    ) : (
+                                        <div className="w-8 h-8 rounded-full bg-green-600 text-white flex items-center justify-center font-semibold border-2 border-white">
+                                            {user.firstName?.charAt(0).toUpperCase() || user.email?.charAt(0).toUpperCase()}
+                                        </div>
+                                    )}
+                                </button>
 
-                {menuDisplay && (
-                    <div className="absolute bg-white text-green-700 right-0 mt-2 shadow-lg rounded p-2 w-44">
-                        {user?.role === ROLE.ADMIN && <Link to="/admin-panel" className="block px-4 py-2 hover:bg-green-100">Admin Panel</Link>}
-                        {user?.role === ROLE.GENERAL && <Link to="/user-panel" className="block px-4 py-2 hover:bg-green-100">User Panel</Link>}
-                        <button onClick={handleLogout} className="block text-left w-full text-red-600 hover:bg-red-100 px-4 py-2">Logout</button>
-                    </div>
-                )}
-            </div>
-        </nav>
-
-        {/* Mobile Menu Toggle */}
-        <div className="md:hidden text-2xl cursor-pointer" onClick={toggleMenu}>
-            {isOpen ? <FaTimes /> : <FaBars />}
-        </div>
-    </div>
-
-    {/* Mobile Menu */}
-    {isOpen && (
-        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} transition={{ duration: 0.4 }} className="md:hidden bg-green-700 px-6 py-4 space-y-3">
-            <Link to="/" onClick={toggleMenu} className="block">Home</Link>
-            <Link to="/prime" onClick={toggleMenu} className='block'>AgroPrime</Link>
-            <Link to="/about" onClick={toggleMenu} className="block">About</Link>
-            <Link to="/contact" onClick={toggleMenu} className="block">Contact</Link>
-            <Link to="/blog" onClick={toggleMenu} className="block">Blog</Link>
-        </motion.div>
+                                {/* Dropdown Menu */}
+                               {/* Dropdown Menu */}
+{menuDisplay && (
+  <div className="absolute right-0 mt-2 min-w-40 max-w-xs bg-white rounded-xl shadow-lg py-2 z-50 border border-gray-200">
+    {user?.role === ROLE.ADMIN && (
+      <Link
+        to="/admin-panel"
+        className="block px-5 py-2 text-sm text-gray-700 hover:bg-green-50 transition-colors rounded-md"
+        onClick={() => setMenuDisplay(false)}
+      >
+        Admin Panel
+      </Link>
     )}
-</header>
+    <Link
+      to="/profile"
+      className="block px-5 py-2 text-sm text-gray-700 hover:bg-green-50 transition-colors rounded-md"
+      onClick={() => setMenuDisplay(false)}
+    >
+      My Profile
+    </Link>
+    <button
+      onClick={() => {
+        handleLogout();
+        setMenuDisplay(false);
+      }}
+      className="block w-full text-left px-5 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors rounded-md"
+    >
+      Logout
+    </button>
+  </div>
+)}
 
+                            </div>
+                        ) : (
+                            <Link
+                                to="/login"
+                                className="px-4 py-2 rounded-md bg-green-600 hover:bg-green-700 text-sm font-medium transition-colors"
+                            >
+                                Login
+                            </Link>
+                        )}
+                    </div>
+                </nav>
+
+                {/* Mobile Menu Button */}
+                <div className="md:hidden ml-4">
+                    <button
+                        onClick={toggleMenu}
+                        className="text-white focus:outline-none"
+                        aria-label="Toggle menu"
+                    >
+                        {isOpen ? (
+                            <FaTimes className="text-2xl" />
+                        ) : (
+                            <FaBars className="text-2xl" />
+                        )}
+                    </button>
+                </div>
+            </div>
+
+            {/* Mobile Menu Content */}
+            {isOpen && (
+                <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="md:hidden bg-green-700 overflow-hidden"
+                >
+                    <div className="px-4 py-3 space-y-4">
+                        <div className="relative mb-4">
+                            <input
+                                type="text"
+                                placeholder="Search products..."
+                                className="w-full py-2 px-4 pr-10 rounded-full text-sm text-gray-800 focus:outline-none"
+                                value={search}
+                                onChange={handleSearch}
+                            />
+                            <button
+                                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-green-600"
+                                aria-label="Search"
+                            >
+                                <GrSearch className="text-sm" />
+                            </button>
+                        </div>
+
+                        <Link
+                            to="/"
+                            onClick={toggleMenu}
+                            className="block py-2 font-medium hover:text-green-200 transition-colors"
+                        >
+                            Home
+                        </Link>
+
+                        <div className="py-2">
+                            <span className="block font-medium mb-2">Products</span>
+                            <div className="pl-4 space-y-2">
+                                {["Fruits", "Vegetables", "Fertilizers"].map((item) => (
+                                    <Link
+                                        key={item}
+                                        to={`/products/${item.toLowerCase()}`}
+                                        onClick={toggleMenu}
+                                        className="block py-1 text-sm hover:text-green-200 transition-colors"
+                                    >
+                                        {item}
+                                    </Link>
+                                ))}
+                            </div>
+                        </div>
+
+                        <Link
+                            to="/prime"
+                            onClick={toggleMenu}
+                            className="block py-2 font-medium hover:text-green-200 transition-colors"
+                        >
+                            AgroPrime
+                        </Link>
+
+                        <Link
+                            to="/aboutus"
+                            onClick={toggleMenu}
+                            className="block py-2 font-medium hover:text-green-200 transition-colors"
+                        >
+                            About
+                        </Link>
+
+                        <Link
+                            to="/contactus"
+                            onClick={toggleMenu}
+                            className="block py-2 font-medium hover:text-green-200 transition-colors"
+                        >
+                            Contact
+                        </Link>
+
+                        <Link
+                            to="/blog"
+                            onClick={toggleMenu}
+                            className="block py-2 font-medium hover:text-green-200 transition-colors"
+                        >
+                            Blog
+                        </Link>
+
+                        {/* Mobile Sell Button */}
+                        <button
+                            onClick={() => {
+                                handleSellClick();
+                                toggleMenu();
+                            }}
+                            className="w-full py-2 px-4 bg-yellow-500 hover:bg-yellow-600 text-white font-medium rounded-md text-sm transition-colors text-center"
+                        >
+                            SELL
+                        </button>
+
+                        {user?._id ? (
+                            <div className="pt-4 border-t border-green-600">
+                                <button
+                                    onClick={handleLogout}
+                                    className="w-full text-left py-2 text-red-300 hover:text-red-200 transition-colors"
+                                >
+                                    Logout
+                                </button>
+                            </div>
+                        ) : (
+                            <Link
+                                to="/login"
+                                onClick={toggleMenu}
+                                className="block mt-4 py-2 px-4 rounded-md bg-green-600 hover:bg-green-700 text-center font-medium transition-colors"
+                            >
+                                Login
+                            </Link>
+                        )}
+                    </div>
+                </motion.div>
+            )}
+        </header>
     )
 }
 

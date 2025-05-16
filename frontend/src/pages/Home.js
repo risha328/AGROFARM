@@ -12,6 +12,7 @@ import Agri from '../components/Agri'
 import RecognizedBy from '../components/RecognizedBy'
 import PrimeHome from '../components/PrimeHome'
 import MachineAdBanner from '../components/MachineAdBanner'
+import FarmerBanner from '../components/FarmerBanner'
 const Home = () => {
   return (
     <div>
@@ -19,12 +20,13 @@ const Home = () => {
       <BannerProduct/>
       <RecognizedBy/>
      <Agri/>
+     {/* <FarmerBanner/> */}
      <HorizontalCardProduct category={"fruits"} heading={"Top Selling Fruits"}/>
     < div>
      <MachineAdBanner/>
      </div>
  <OfferSection/>
-      
+      <FarmerBanner/>
       <HorizontalCardProduct category={"flowers"} heading={"Recommended Flowers"}/>
       <PrimeHome/>
       <HorizontalCardProduct category={"vegetables"} heading={"Top Selling Vegetables"}/>

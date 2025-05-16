@@ -3,7 +3,8 @@ const Razorpay = require('razorpay');
 const crypto = require('crypto');
 
 const router = express.Router();
-
+const Payment = require('../models/Payment'); // Ad
+//const { default: payments } = require('razorpay/dist/types/payments');
 // Razorpay instance
 const razorpay = new Razorpay({
     key_id: process.env.RAZORPAY_KEY_ID,
@@ -35,15 +36,48 @@ router.post('/create-order', async (req, res) => {
 // -------- Payment Verification --------
 router.post('/verify-payment', async (req, res) => {
     try {
-        const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
-
+        const { razorpay_order_id, razorpay_payment_id, razorpay_signature, amount, currency } = req.body;
+        console.log('Received payment data:', { razorpay_order_id, razorpay_payment_id, razorpay_signature, amount, currency });
+        // Check if all required fields are present
+        if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature || !amount) {
+            return res.status(400).json({ success: false, message: "Missing fields" });
+        }
         const generated_signature = crypto
             .createHmac('sha256', process.env.RAZORPAY_KEY_SECRET)
             .update(razorpay_order_id + '|' + razorpay_payment_id)
             .digest('hex');
 
         if (generated_signature === razorpay_signature) {
+
+            const order = await Order.findOneAndUpdate(
+                { razorpay_order_id },
+                { 
+                    isPaid: true, 
+                    paidAt: new Date(), 
+                    paymentInfo: { razorpay_order_id, razorpay_payment_id, razorpay_signature } 
+                },
+                { new: true }
+            );
+
+            if (!order) {
+                return res.status(404).json({ success: false, message: "Order not found" });
+            }
+            
+            const payment = new Payment({
+                razorpay_order_id,
+                razorpay_payment_id,
+                razorpay_signature,
+                amount,
+                currency: currency || 'INR',
+                status: 'paid'
+            });
+
+            const savedPayment = await payment.save();
+            console.log('Payment saved:', savedPayment);
             return res.json({ success: true, message: "Payment verified successfully" });
+
+
+            
         } else {
             return res.status(400).json({ success: false, message: "Invalid signature" });
         }

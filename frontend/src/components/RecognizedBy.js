@@ -1,11 +1,11 @@
 import React from 'react';
 
 const companyLogos = [
-  { id: 1, name: "Microsoft", logo: "/assets/logos/microsoft.png" },
-  { id: 2, name: "Google", logo: "/assets/logos/google.png" },
-  { id: 3, name: "Amazon", logo: "/assets/logos/amazon.png" },
-  { id: 4, name: "IBM", logo: "/assets/logos/ibm.png" },
-  { id: 5, name: "Apple", logo: "/assets/logos/apple.webp" },
+  { id: 1, name: "Dairy", logo: "/assets/logos/Agriculturefarm.jpg" },
+  { id: 2, name: "Google", logo: "/assets/logos/a1.jpg" },
+  { id: 3, name: "Amazon", logo: "/assets/logos/a2.jpg" },
+  { id: 4, name: "IBM", logo: "/assets/logos/a3.jpg" },
+  { id: 5, name: "Apple", logo: "/assets/logos/a4.jpg" },
 ];
 
 const allLogos = [...companyLogos, ...companyLogos];

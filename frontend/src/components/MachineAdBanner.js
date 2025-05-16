@@ -1,213 +1,196 @@
-
-
-// Import local images
-/*import tractorImg from '../assest/images/tractor1.jpg';
-import harvesterImg from '../assest/images/harvestor1.jpg';
-import plowImg from '../assest/images/plow1.jpg';
-import cultivatorImg from '../assest/images/cultivator1.jpg';
-import irrigationImg from '../assest/images/irrigation1.jpg';*/
-
 import React, { useState } from 'react';
-import { FaPhone, FaMapMarkerAlt, FaCheck, FaArrowRight, FaStar, FaRegStar, FaRegBookmark, FaBookmark } from 'react-icons/fa';
-import PropTypes from 'prop-types';
+import { 
+  FaPhone, FaMapMarkerAlt, FaCheck, FaArrowRight, 
+  FaStar, FaRegStar, FaRegBookmark, FaBookmark,
+  FaUserTie, FaCalendarAlt, FaTractor
+} from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
-// Import local images
-import tractorImg from '../assest/images/tractor1.jpg';
-import harvesterImg from '../assest/images/harvestor1.jpg';
-import plowImg from '../assest/images/plow1.jpg';
-import cultivatorImg from '../assest/images/cultivator1.jpg';
-import irrigationImg from '../assest/images/irrigation1.jpg';
+const CombinedAdBar = () => {
+  const [activeTab, setActiveTab] = useState('machines');
+  const [favorites, setFavorites] = useState({
+    machine: false,
+    labour: false
+  });
 
-const MachineAdBanner = ({
-  title = "Premium Agricultural Equipment",
-  price = 0,
-  location = "Available Nationwide",
-  contact = "Call for Availability",
-  features = [],
-  imageUrl = tractorImg, // Default to local tractor image
-  rating = 4.8,
-  reviews = 24,
-  adType = "premium", // 'standard', 'featured', 'premium'
-  verified = true,
-  lastUpdated = "Updated Today",
-  onContact = () => console.log("Contact clicked"),
-  onDetails = () => console.log("Details clicked"),
-  onFavorite = () => console.log("Favorite clicked")
-}) => {
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [showAllFeatures, setShowAllFeatures] = useState(false);
-
-  const getMachineImage = () => {
-    const equipmentImages = [
-      tractorImg,
-      harvesterImg,
-      plowImg,
-      cultivatorImg,
-      irrigationImg
-    ];
-    return equipmentImages[Math.floor(Math.random() * equipmentImages.length)];
+  const toggleFavorite = (type) => {
+    setFavorites(prev => ({...prev, [type]: !prev[type]}));
   };
 
   return (
-    <div className={`w-full bg-white rounded-xl shadow-lg overflow-hidden border-l-4 ${
-      adType === 'featured' ? 'border-emerald-500' : 
-      adType === 'premium' ? 'border-teal-600' : 'border-gray-300'
-    } transition-all duration-300 hover:shadow-xl`}>
-      
-      {/* Premium Ribbon */}
-      {adType === 'premium' && (
-        <div className="absolute top-0 right-0 bg-teal-700 text-white px-4 py-1 text-xs font-bold uppercase tracking-wide transform translate-x-2 -translate-y-2 rotate-3 shadow-md z-10">
-          Premium Listing
-        </div>
-      )}
+    <div className="w-full bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100">
+      {/* Tab Navigation */}
+      <div className="flex border-b border-gray-200">
+        <button 
+          onClick={() => setActiveTab('machines')}
+          className={`flex-1 py-4 px-6 font-semibold text-sm uppercase tracking-wider flex items-center justify-center gap-2 transition-colors
+            ${activeTab === 'machines' 
+              ? 'text-teal-700 border-b-2 border-teal-600 bg-teal-50' 
+              : 'text-gray-500 hover:text-teal-600 hover:bg-teal-50'}`}
+        >
+          <FaTractor className="text-lg" />
+          Farm Equipment
+        </button>
+        <button 
+          onClick={() => setActiveTab('labour')}
+          className={`flex-1 py-4 px-6 font-semibold text-sm uppercase tracking-wider flex items-center justify-center gap-2 transition-colors
+            ${activeTab === 'labour' 
+              ? 'text-amber-700 border-b-2 border-amber-600 bg-amber-50' 
+              : 'text-gray-500 hover:text-amber-600 hover:bg-amber-50'}`}
+        >
+          <FaUserTie className="text-lg" />
+          Farm Labour
+        </button>
+      </div>
 
-      <div className="flex flex-col lg:flex-row">
-        {/* Image Section - Full width on mobile, 40% on desktop */}
-        <div className="w-full lg:w-2/5 relative group h-64 lg:h-auto">
-          <div className="absolute inset-0 bg-gradient-to-t from-gray-900/30 to-transparent z-0"></div>
-          <img 
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-            src={imageUrl || getMachineImage()} 
-            alt={title}
-            loading="lazy"
-            onError={(e) => {
-              console.error("Failed to load image:", e.target.src);
-              e.target.src = getMachineImage();
-            }}
-          />
-          
-          {/* Favorite Button */}
-          <button 
-            onClick={(e) => {
-              e.preventDefault();
-              setIsFavorite(!isFavorite);
-              onFavorite();
-            }}
-            className={`absolute top-4 left-4 p-2 rounded-full ${isFavorite ? 'bg-white text-teal-600' : 'bg-white/90 text-gray-600'} shadow-md transition-all duration-200 z-10`}
-            aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
-          >
-            {isFavorite ? <FaBookmark size={16} /> : <FaRegBookmark size={16} />}
-          </button>
-          
-          {/* Price Badge */}
-          <div className="absolute bottom-4 left-4 bg-white/95 px-4 py-2 rounded-lg shadow-md">
-            <div className="text-teal-800 font-bold text-xl">₹{price.toLocaleString('en-IN')}</div>
-            <div className="text-xs text-gray-600 font-medium">per day</div>
-          </div>
-        </div>
-
-        {/* Content Section - Full width on mobile, 60% on desktop */}
-        <div className="w-full lg:w-3/5 p-6 flex flex-col">
-          <div className="flex flex-col sm:flex-row justify-between items-start mb-4 gap-4">
-            <div className="flex-1">
-              <div className="flex items-center">
-                <h2 className="text-xl sm:text-2xl font-bold text-gray-800">{title}</h2>
-                {verified && (
-                  <span className="ml-2 bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full text-xs font-medium flex items-center">
-                    <FaCheck className="mr-1" size={10} />
-                    Verified
-                  </span>
-                )}
-              </div>
-              <div className="flex items-center mt-2">
-                <div className="flex text-amber-400 mr-2">
-                  {[...Array(5)].map((_, i) => (
-                    i < Math.floor(rating) ? 
-                    <FaStar key={i} size={14} /> : 
-                    i < rating ? <FaStar key={i} size={14} className="text-amber-400 opacity-70" /> : 
-                    <FaRegStar key={i} size={14} className="text-gray-300" />
-                  ))}
-                </div>
-                <span className="text-sm text-gray-600">{rating.toFixed(1)} ({reviews} reviews)</span>
-              </div>
-            </div>
-            <span className="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-xs font-medium flex items-center">
-              <div className="w-2 h-2 bg-emerald-500 rounded-full mr-2"></div>
-              Available Now
-            </span>
-          </div>
-
-          {/* Location & Contact */}
-          <div className="flex flex-wrap gap-3 my-3">
-            <div className="flex items-center text-gray-700 bg-gray-50 px-3 py-1.5 rounded-full">
-              <FaMapMarkerAlt className="text-emerald-600 mr-2" size={14} />
-              <span className="text-sm">{location}</span>
-            </div>
-            <a 
-              href={`tel:${contact}`}
-              className="flex items-center text-gray-700 bg-gray-50 px-3 py-1.5 rounded-full hover:bg-gray-100 transition-colors"
-            >
-              <FaPhone className="text-emerald-600 mr-2" size={14} />
-              <span className="text-sm">{contact}</span>
-            </a>
-          </div>
-
-          {/* Features */}
-          <div className="mb-5 flex-grow">
-            <h3 className="text-sm font-semibold text-gray-500 uppercase mb-2">Equipment Features</h3>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {(showAllFeatures ? features : features.slice(0, 4)).map((feature, i) => (
-                <li key={i} className="flex items-center">
-                  <FaCheck className="text-emerald-500 mr-2 text-xs" />
-                  <span className="text-gray-700 text-sm">{feature}</span>
-                </li>
-              ))}
-            </ul>
-            {features.length > 4 && (
+      {/* Content Area */}
+      <div className="p-6">
+        {activeTab === 'machines' ? (
+          <div className="flex flex-col lg:flex-row gap-6">
+            {/* Image Section - Wider on larger screens */}
+            <div className="relative w-full lg:w-2/5 xl:w-1/3">
+              <img 
+                src="https://media.istockphoto.com/id/652550482/photo/portrait-of-buffalo-shepherd.jpg?s=2048x2048&w=is&k=20&c=kzSh6R9l0PWBOtfAJOzAj2GHZ1wyK_WBPjELw4Y6zsU=" 
+                alt="Farm Equipment" 
+                className="w-full h-64 lg:h-72 object-cover rounded-lg shadow-sm"
+              />
               <button 
-                onClick={() => setShowAllFeatures(!showAllFeatures)}
-                className="mt-2 text-emerald-600 hover:text-emerald-800 text-sm font-medium flex items-center"
+                onClick={() => toggleFavorite('machine')}
+                className={`absolute top-3 left-3 p-2 rounded-full transition-colors
+                  ${favorites.machine ? 'bg-teal-100 text-teal-600' : 'bg-white text-gray-400'} 
+                  shadow-md hover:bg-teal-100 hover:text-teal-600`}
               >
-                {showAllFeatures ? 'Show less features' : `Show all ${features.length} features`}
-                <FaArrowRight className={`ml-1 text-xs transition-transform ${showAllFeatures ? 'transform rotate-90' : ''}`} />
+                {favorites.machine ? <FaBookmark size={16} /> : <FaRegBookmark size={16} />}
               </button>
-            )}
+              <div className="absolute bottom-3 left-3 bg-white/95 px-3 py-1.5 rounded-md shadow-sm border border-gray-100">
+                <div className="text-teal-800 font-bold text-lg">₹2,500</div>
+                <div className="text-xs text-gray-500">per day</div>
+              </div>
+            </div>
+            
+            {/* Details Section */}
+            <div className="flex-1">
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+                <h3 className="text-xl md:text-2xl font-bold text-gray-800">Tructor</h3>
+                <span className="inline-flex items-center bg-emerald-50 text-emerald-800 px-3 py-1 rounded-full text-xs font-medium">
+                  <FaCheck className="mr-1" size={10} />
+                  Verified Supplier
+                </span>
+              </div>
+              
+              <div className="flex items-center text-sm mb-4">
+                <div className="flex text-amber-400 mr-2">
+                  <FaStar size={14} /><FaStar size={14} /><FaStar size={14} /><FaStar size={14} /><FaRegStar size={14} />
+                </div>
+                <span className="text-gray-600">4.7 (32 reviews)</span>
+              </div>
+              
+              <div className="mb-5">
+                <p className="text-gray-600 text-sm md:text-base mb-4">
+                  Premium quality tractor with 50HP engine, suitable for all farming operations. Includes cultivator attachment. Well-maintained with service records.
+                </p>
+                
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <div className="flex items-center text-sm bg-gray-50 px-3 py-1.5 rounded-full border border-gray-200">
+                    <FaMapMarkerAlt className="text-teal-600 mr-2" size={12} />
+                    <span className="text-gray-700">Hooghly, WB</span>
+                  </div>
+                  <a href="tel:+919876543210" className="flex items-center text-sm bg-gray-50 px-3 py-1.5 rounded-full border border-gray-200 hover:bg-teal-50">
+                    <FaPhone className="text-teal-600 mr-2" size={12} />
+                    <span className="text-gray-700">+91 98765 43210</span>
+                  </a>
+                </div>
+              </div>
+              
+              <div className="flex flex-col sm:flex-row gap-3">
+                <a href="tel:+919876543210" className="flex-1 bg-teal-600 hover:bg-teal-700 text-white py-2.5 rounded-lg text-center font-medium transition-colors flex items-center justify-center gap-2">
+                  <FaPhone size={14} />
+                  Call Now
+                </a>
+                <Link to="/browse-machine" className="flex-1 border border-teal-600 text-teal-700 hover:bg-teal-50 py-2.5 rounded-lg text-center font-medium transition-colors flex items-center justify-center gap-2">
+                  View Details
+                  <FaArrowRight size={12} />
+                </Link>
+              </div>
+            </div>
           </div>
-
-          {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-gray-100">
-            <a
-              href={`tel:${contact}`}
-              className="flex-1 flex items-center justify-center px-5 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-lg hover:from-emerald-700 hover:to-teal-700 transition-all duration-200 font-medium shadow-sm hover:shadow-md"
-            >
-              <FaPhone className="mr-2" />
-              Call Now
-            </a>
-            <button
-              onClick={onDetails}
-              className="flex-1 flex items-center justify-center px-5 py-3 border border-emerald-600 text-emerald-700 hover:bg-emerald-50 rounded-lg transition-colors duration-200 font-medium"
-            >
-              View Full Details
-              <FaArrowRight className="ml-2" />
-            </button>
+        ) : (
+          <div className="flex flex-col lg:flex-row gap-6">
+            {/* Image Section - Wider on larger screens */}
+            <div className="relative w-full lg:w-2/5 xl:w-1/3">
+              <img 
+                src="https://media.istockphoto.com/id/641940492/photo/rural-women-cutting-silage-for-domestic-cattle.jpg?s=612x612&w=0&k=20&c=MSTEAtpcbIxfiN-BsEMVAGqvMC7IgoaLrZzRsN4Fjyg=" 
+                alt="Farm Labour" 
+                className="w-full h-64 lg:h-72 object-cover rounded-lg shadow-sm"
+              />
+              <button 
+                onClick={() => toggleFavorite('labour')}
+                className={`absolute top-3 left-3 p-2 rounded-full transition-colors
+                  ${favorites.labour ? 'bg-amber-100 text-amber-600' : 'bg-white text-gray-400'} 
+                  shadow-md hover:bg-amber-100 hover:text-amber-600`}
+              >
+                {favorites.labour ? <FaBookmark size={16} /> : <FaRegBookmark size={16} />}
+              </button>
+              <div className="absolute bottom-3 left-3 bg-white/95 px-3 py-1.5 rounded-md shadow-sm border border-gray-100">
+                <div className="text-amber-700 font-bold text-lg">₹600</div>
+                <div className="text-xs text-gray-500">per worker/day</div>
+              </div>
+            </div>
+            
+            {/* Details Section */}
+            <div className="flex-1">
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+                <h3 className="text-xl md:text-2xl font-bold text-gray-800">Skilled Agricultural Labor Team</h3>
+                <span className="inline-flex items-center bg-emerald-50 text-emerald-800 px-3 py-1 rounded-full text-xs font-medium">
+                  <FaCheck className="mr-1" size={10} />
+                  Verified Provider
+                </span>
+              </div>
+              
+              <div className="flex flex-wrap items-center text-sm mb-4 gap-4">
+                <div className="flex items-center text-gray-600">
+                  <FaUserTie className="text-amber-500 mr-2" size={14} />
+                  <span>5+ Years Experience</span>
+                </div>
+                <div className="flex items-center text-gray-600">
+                  <FaCalendarAlt className="text-amber-500 mr-2" size={14} />
+                  <span>Immediate Availability</span>
+                </div>
+              </div>
+              
+              <div className="mb-5">
+                <p className="text-gray-600 text-sm md:text-base mb-4">
+                  Experienced team of 10 farm workers specializing in harvesting, planting, and crop maintenance. Fully equipped with necessary tools. Bilingual (Hindi/Punjabi).
+                </p>
+                
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <div className="flex items-center text-sm bg-gray-50 px-3 py-1.5 rounded-full border border-gray-200">
+                    <FaMapMarkerAlt className="text-amber-600 mr-2" size={12} />
+                    <span className="text-gray-700">WB, India</span>
+                  </div>
+                  <a href="tel:+919876543211" className="flex items-center text-sm bg-gray-50 px-3 py-1.5 rounded-full border border-gray-200 hover:bg-amber-50">
+                    <FaPhone className="text-amber-600 mr-2" size={12} />
+                    <span className="text-gray-700">+91 98765 43211</span>
+                  </a>
+                </div>
+              </div>
+              
+              <div className="flex flex-col sm:flex-row gap-3">
+                <a href="tel:+919876543211" className="flex-1 bg-amber-600 hover:bg-amber-700 text-white py-2.5 rounded-lg text-center font-medium transition-colors flex items-center justify-center gap-2">
+                  <FaPhone size={14} />
+                  Hire Now
+                </a>
+                <Link to="/gform" className="flex-1 border border-amber-600 text-amber-700 hover:bg-amber-50 py-2.5 rounded-lg text-center font-medium transition-colors flex items-center justify-center gap-2">
+                  View Team
+                  <FaArrowRight size={12} />
+                </Link>
+              </div>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
 };
 
-MachineAdBanner.propTypes = {
-  title: PropTypes.string,
-  price: PropTypes.number,
-  location: PropTypes.string,
-  contact: PropTypes.string,
-  features: PropTypes.arrayOf(PropTypes.string),
-  imageUrl: PropTypes.string,
-  rating: PropTypes.number,
-  reviews: PropTypes.number,
-  adType: PropTypes.oneOf(['standard', 'featured', 'premium']),
-  verified: PropTypes.bool,
-  lastUpdated: PropTypes.string,
-  onContact: PropTypes.func,
-  onDetails: PropTypes.func,
-  onFavorite: PropTypes.func
-};
-
-MachineAdBanner.defaultProps = {
-  adType: 'standard',
-  verified: false,
-  lastUpdated: "Recently updated"
-};
-
-export default MachineAdBanner;
+export default CombinedAdBar;

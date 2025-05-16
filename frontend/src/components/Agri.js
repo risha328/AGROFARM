@@ -35,7 +35,7 @@ const AgriculturePromo = () => {
       {/* Background container with relative positioning */}
       <div className="relative w-full h-full rounded-xl">
         <div 
-          className="absolute inset-0 rounded-xl"
+          className="absolute w-full h-full bg-gradient-to-b from-green-100 to-green-300 rounded-xl"
           style={{
             backgroundImage: "url('https://plus.unsplash.com/premium_photo-1661962685099-c6a685e6c61d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YWdyaWN1bHR1cmFsfGVufDB8fDB8fHww')",
             backgroundSize: 'cover',
@@ -65,7 +65,7 @@ const AgriculturePromo = () => {
                 onClick={() => handleCardClick('/add-product')}
               />
               <TransparentCard 
-                title="For Buyers"
+                title="For Consumers"
                 description="Get fresh produce directly from farms"
                 linkText="Browse Products"
                 to="/product-category"

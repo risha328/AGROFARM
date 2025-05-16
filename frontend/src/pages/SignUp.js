@@ -65,7 +65,8 @@ const SignUp = () => {
                 transition={{ duration: 0.8 }}
                 className='bg-white rounded-2xl shadow-xl p-8 w-full max-w-md'
             >
-                {/* Animated Logo */}
+                <h2 className='text-center text-2xl font-bold text-green-700 mb-4'>Create New Account</h2>
+                {/* Animated Logo
                 <div className='flex justify-center mb-4'>
                     <motion.div
                         animate={{ rotate: [0, -10, 10, -10, 0] }}
@@ -74,9 +75,9 @@ const SignUp = () => {
                     >
                         <GiPlantSeed />
                     </motion.div>
-                </div>
+                </div> */}
 
-                {/* Farmer ID (Profile Pic) Upload */}
+                {/* Farmer ID (Profile Pic) Upload
                 <div className='flex flex-col items-center'>
                     <div className='relative w-24 h-24 rounded-full overflow-hidden border-4 border-green-500 shadow-md'>
                         <img src={data.profilePic || "https://via.placeholder.com/150x150.png?text=Farmer+ID"} alt='Farmer ID' className='object-cover w-full h-full' />
@@ -85,7 +86,7 @@ const SignUp = () => {
                             <input type='file' accept='image/*' className='hidden' onChange={handleUploadPic} />
                         </label>
                     </div>
-                </div>
+                </div> */}
 
                 {/* Form */}
                 <form className='pt-6 space-y-4' onSubmit={handleSubmit}>
