@@ -168,7 +168,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const backendResponse = await fetch('http://localhost:8080/api/signin', {
+        const backendResponse = await fetch(`${process.env.REACT_APP_SERVER}/api/signin`, {
             method: 'POST',
             credentials: 'include',
             headers: { "content-type": "application/json" },

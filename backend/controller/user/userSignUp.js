@@ -8,7 +8,7 @@ async function userSignUpController(req,res){
 
         const user = await userModel.findOne({email})
 
-        console.log("user",user)
+        //console.log("user",user)
 
         if(user){
             throw new Error("Already user exits.")
@@ -79,7 +79,7 @@ async function userSignUpController(req, res) {
 
         const user = await userModel.findOne({ email });
 
-        console.log("user", user);
+        //console.log("user", user);
 
         if (user) {
             throw new Error("User already exists.");
@@ -282,7 +282,7 @@ async function userSignUpController(req, res) {
             if (error) {
                 console.error('Error sending email:', error);
             } else {
-                console.log('Email sent:', info.response);
+                //console.log('Email sent:', info.response);
             }
         });
 
